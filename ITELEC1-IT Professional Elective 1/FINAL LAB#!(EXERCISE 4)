@@ -1,0 +1,95 @@
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+   
+    <Button
+        android:id="@+id/btnStandard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Standard Button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="64dp" />
+
+    
+    <ImageButton
+        android:id="@+id/btnImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_camera"
+        android:contentDescription="Camera Button"
+        app:layout_constraintTop_toBottomOf="@id/btnStandard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:background="@null" />
+
+    
+    <ToggleButton
+        android:id="@+id/btnToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOff="Switch OFF"
+        android:textOn="Switch ON"
+        app:layout_constraintTop_toBottomOf="@id/btnImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+MainActivity.java
+
+package com.example.exercise4;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ToggleButton;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        
+        Button btnStandard = findViewById(R.id.btnStandard);
+        ImageButton btnImage = findViewById(R.id.btnImage);
+        ToggleButton btnToggle = findViewById(R.id.btnToggle);
+
+      
+        btnStandard.setOnClickListener(v ->
+                Toast.makeText(this, "Standard Button Clicked!", Toast.LENGTH_SHORT).show()
+        );
+
+      
+        btnImage.setOnClickListener(v ->
+                Toast.makeText(this, "Image Button Clicked!", Toast.LENGTH_SHORT).show()
+        );
+
+       
+        btnToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                Toast.makeText(this, "Toggle ON", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Toggle OFF", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}
