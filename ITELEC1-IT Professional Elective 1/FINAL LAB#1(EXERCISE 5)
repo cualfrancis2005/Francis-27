@@ -1,0 +1,103 @@
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+   
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/image1"
+        android:contentDescription="Sample Image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+  
+    <ImageSwitcher
+        android:id="@+id/imageSwitcher"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+ 
+    <Button
+        android:id="@+id/btnSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch Image"
+        app:layout_constraintTop_toBottomOf="@id/imageSwitcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+MainActivity.java
+
+
+package com.example.exercise5;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
+import android.widget.ViewSwitcher;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    int[] images = {R.drawable.image1, R.drawable.image2};
+    int currentIndex = 0; // tracks which image is showing
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ImageView imageView = findViewById(R.id.imageView);
+        ImageSwitcher imageSwitcher = findViewById(R.id.imageSwitcher);
+        Button btnSwitch = findViewById(R.id.btnSwitch);
+
+       
+        imageView.setImageResource(R.drawable.image1);
+
+       
+        imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView image = new ImageView(getApplicationContext());
+                image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                image.setLayoutParams(
+                        new ImageSwitcher.LayoutParams(200, 200));
+                return image;
+            }
+        });
+
+      
+        imageSwitcher.setImageResource(images[currentIndex]);
+
+    
+        btnSwitch.setOnClickListener(v -> {
+            currentIndex = (currentIndex + 1) % images.length; // toggle between 0 and 1
+            imageSwitcher.setImageResource(images[currentIndex]);
+        });
+    }
+}
+
+
