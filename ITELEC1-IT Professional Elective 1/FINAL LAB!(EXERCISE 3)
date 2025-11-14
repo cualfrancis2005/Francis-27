@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AutoCompleteTextView autoMOBA = findViewById(R.id.autoMOBA);
-        String[] moba = {"Mobile Legends", "DOTA 2", "League Of Legends", "Area Of Valor"};
+        String[] moba = {"DOTA 1","Mobile Legends", "DOTA 2", "League Of Legends", "Area Of Valor"};
         ArrayAdapter<String> mobaAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_dropdown_item_1line, moba);
         autoMOBA.setAdapter(mobaAdapter);
